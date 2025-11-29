@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import "VishwaWijesakare/cmd"
+import "cli-task-manager/cmd"
 
 func main() {
 	cmd.Execute()
