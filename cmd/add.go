@@ -1,8 +1,8 @@
 package cmd
 
 import (
-    "fmt"
     "github.com/spf13/cobra"
+    "cli-task-manager/internal/tasks"
 )
 
 var addCmd = &cobra.Command{
