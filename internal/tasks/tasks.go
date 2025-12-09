@@ -16,12 +16,33 @@ var tasks []Task
 var dataFile = "tasks.json"
 
 func LoadTasks() {
+    tasks = []Task{}
+
     file, err := ioutil.ReadFile(dataFile)
     if err != nil {
-        tasks = []Task{}
         return
     }
+
     json.Unmarshal(file, &tasks)
+}
+
+
+func ListDoneTasks() {
+	LoadTasks()
+	for _, t := range tasks {
+		if t.Done {
+			fmt.Printf("%d. [✅] %s\n", t.ID, t.Description)
+		}
+	}
+}
+
+func ListPendingTasks() {
+	LoadTasks()
+	for _, t := range tasks {
+		if !t.Done {
+			fmt.Printf("%d. [❌] %s\n", t.ID, t.Description)
+		}
+	}
 }
 
 func SaveTasks() {
@@ -30,15 +51,19 @@ func SaveTasks() {
 }
 
 func AddTask(description string) {
+    LoadTasks()
+
     id := 1
     if len(tasks) > 0 {
         id = tasks[len(tasks)-1].ID + 1
     }
+
     newTask := Task{ID: id, Description: description, Done: false}
     tasks = append(tasks, newTask)
     SaveTasks()
     fmt.Println("Task added:", description)
 }
+
 
 func ListTasks() {
     LoadTasks()
